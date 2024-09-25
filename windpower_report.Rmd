@@ -74,7 +74,7 @@ split(data.energy$wind.energy, data.energy$operator) |>
 There is a universal dip of power production over all companies during the day as well as in the summer months (see Figure \ref{fig:totalwind}).
 This is to be expected and may reflect total power demand more than it does the capability of wind power production.
 
-For all following anaylsis and models, Wind PP values are multiplied by 4 to convert into MW as average Power over 15 minutes instead of MWh/15min.
+For all following analysis and models, Wind PP values are multiplied by 4 to convert into MW as average Power over 15 minutes instead of MWh/15min.
 
 
 ```{r lineTotalComp, out.width="50%", fig.ncol = 2,  fig.align="center", fig.subcap=c("Average daily windspeed", "Daily wind energy production for each operator."), fig.cap="\\label{fig:totalwind}Wind speed and wind energy production throughout the period being analyzed."}
