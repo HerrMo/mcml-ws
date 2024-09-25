@@ -42,7 +42,6 @@ E.g.\ 2022 has seen the installation of 551 onshore wind farms worth 2403MW of p
 data.stations.raw <- readDataStationsRaw()
 data.stations.grid <- getStationsGrid(data.stations.raw)
 
-# SOLUTION
 tablesfile <- file.path(path.intermediate, "tables.rds")
 if (file.exists(tablesfile)) {
   tables <- readRDS(tablesfile)
@@ -50,16 +49,13 @@ if (file.exists(tablesfile)) {
   data.wind <- tables$data.wind
   rm(tables)
 } else {
-# SOLUTION END
   data.energy <- readDataEnergy()
   data.wind <- getWindInGrid(readDataWindRaw(), data.stations.grid)
-# SOLUTION
   saveRDS(list(
     data.energy = data.energy,
     data.wind = data.wind
   ), tablesfile)
 }
-# SOLUTION END
 
 data.energy.daily <- getEnergyDaily(data.energy)
 ```
@@ -138,9 +134,7 @@ Remember that this project is supposed to teach you how to set up a project dire
 Using the `penalized` package, we can restrict the value of grid cell coefficients to positive values, and furthermore use L1 regularization to prefer coefficients with value 0 when they do not have a large effect. Figure \ref{fig:squares} (b) shows the coefficients of the penalized model.
 
 ```{r model penalized}
-# SOLUTION
 set.seed(1)
-# SOLUTION END
 model.penalized <- fitModelPenalized(data.modelinput = data.modelinput)
 ```
 
@@ -152,9 +146,7 @@ colSquare(coef(model.penalized), data.stations.raw, title = "Penalized Linear Mo
 We can fit the penalized model on the subset of the data for each transmission system operator (Figure \ref{fig:squaresByOperator} (a)--(d)) and compare that with the actual areas of responsibility of each operator (Figure \ref{fig:squaresByOperator} (e)). 
 
 ```{r squaresByOperator, out.width="50%", fig.ncol = 2, fig.align="center", fig.cap="\\label{fig:squaresByOperator}(a) -- (d): Grid squares colored by penalized beta coefficients for each transmission system operator. (e): Map of control areas of german transmission system operators.", fig.subcap = c(character(4), "Source: Robinius 2017")}
-# SOLUTION
 set.seed(2)
-# SOLUTION END
 operators <- unique(data.energy$operator)
 
 
@@ -178,9 +170,7 @@ We also try out a random forest model from the `ranger` package.
 This could then later be used to predict future power production based on predicted weather Data.
 
 ```{r prediction, out.width="80%", fig.align="center", fig.cap="\\label{fig:prediction}Prediction of wind power production based on wind speed data."}
-# SOLUTION
 set.seed(3)
-# SOLUTION END
 data.predict <- buildModelData(data.wind.wide, data.energy, start.date.predict, end.date.predict, keep.datetime = TRUE)
 
 prediction.lm <- predictModelLm(model.lm, data.predict)
