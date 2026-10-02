@@ -1,11 +1,11 @@
-"""Models of wind power production as a function of gridded wind speed.
+r"""Models of wind power production as a function of gridded wind speed.
 
 All linear models share the mean function
 
-.. math::
-
-    \\text{Power}_i = \\beta_{0,\\text{TimeOfDay}(i)}
-        + \\beta_1 \\text{Wind@Grid.01}_i + \\dots + \\beta_{16} \\text{Wind@Grid.16}_i
+$$
+\text{Power}_i = \beta_{0,\text{TimeOfDay}(i)}
+    + \beta_1 \text{Wind@Grid.01}_i + \dots + \beta_{16} \text{Wind@Grid.16}_i
+$$
 """
 
 from __future__ import annotations
