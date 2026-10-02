@@ -1,0 +1,28 @@
+# pip freeze of the original author's environment (Python 3.11, October 2023).
+# Input for exercise 1 of EXERCISES.md. Do not use for the project itself.
+annotated-types==0.6.0
+contourpy==1.1.1
+cycler==0.12.1
+fonttools==4.43.1
+iniconfig==2.0.0
+joblib==1.3.2
+kiwisolver==1.4.5
+matplotlib==3.8.0
+numpy==1.24.4
+packaging==23.2
+pandas==2.0.3
+pillow==10.0.1
+pluggy==1.3.0
+pydantic==2.4.2
+pydantic_core==2.10.1
+pyparsing==3.1.1
+pytest==7.4.2
+python-dateutil==2.8.2
+pytz==2023.3.post1
+PyYAML==6.0.1
+scikit-learn==1.3.1
+scipy==1.11.3
+six==1.16.0
+threadpoolctl==3.2.0
+typing_extensions==4.8.0
+tzdata==2023.3
