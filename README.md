@@ -17,6 +17,7 @@ The project uses [uv](https://docs.astral.sh/uv/) for dependency management.
 
 ```bash
 uv sync            # creates .venv with the locked dependencies
+uv run pre-commit install
 ```
 
 ## Usage
@@ -52,6 +53,13 @@ modelinput = model.build_model_data(
 
 # fit a linear model
 model.fit_model_lm(modelinput).coef
+```
+
+## Development
+
+```bash
+uv run pytest                 # tests
+uv run ruff check . && uv run ruff format .
 ```
 
 ## Acknowledgements
