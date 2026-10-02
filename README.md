@@ -60,6 +60,7 @@ model.fit_model_lm(modelinput).coef
 ```bash
 uv run pytest                 # tests
 uv run ruff check . && uv run ruff format .
+uv run --group docs mkdocs serve   # documentation at http://127.0.0.1:8000
 ```
 
 ## Acknowledgements

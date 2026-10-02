@@ -1,0 +1,1 @@
+::: windpower.data_wind

@@ -1,0 +1,44 @@
+site_name: windpower
+site_description: Mock analysis of wind power generation in Germany
+repo_url: https://github.com/HerrMo/mcml-ws
+
+theme:
+  name: material
+  features:
+    - content.code.copy
+    - navigation.sections
+
+nav:
+  - Home: index.md
+  - Report: report.md
+  - API reference:
+      - Configuration: api/config.md
+      - Power data: api/data_power.md
+      - Wind data: api/data_wind.md
+      - Models: api/model.md
+      - Evaluation: api/evaluate.md
+      - Plots: api/plot.md
+      - Pipeline: api/pipeline.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: google
+            show_source: true
+            show_root_heading: true
+            members_order: source
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
