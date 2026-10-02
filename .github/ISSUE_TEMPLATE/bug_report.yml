@@ -1,0 +1,53 @@
+name: Bug report
+description: Something does not work as expected
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting! Please fill in as much as you can, a bug we cannot reproduce is hard to fix.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened, and what did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Minimal commands or code to reproduce the problem.
+      render: shell
+      placeholder: |
+        uv sync --locked
+        uv run windpower --config config.yaml
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Output / traceback
+      render: text
+  - type: input
+    id: commit
+    attributes:
+      label: Commit
+      description: Output of `git rev-parse --short HEAD`
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Output of `uv --version`, `uv run python --version` and your operating system.
+      render: text
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I ran `uv sync --locked` and the problem persists.
+          required: true
+        - label: I searched existing issues.
