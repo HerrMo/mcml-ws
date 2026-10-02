@@ -1,0 +1,33 @@
+# Central configuration of the analysis.
+# All paths are relative to the project root.
+
+paths:
+  raw: data/raw
+  intermediate: data/intermediate
+  plots: plots
+  stations: data/raw/stations.txt
+  measure: data/raw/wind_raw.xz
+  power: data/raw/PowerGen.zip
+  germany: data/raw/gadm41_DEU_0.json
+
+# Range covered by the raw data. Stations are only used if they were active
+# for the whole range.
+dates:
+  start_min: 2022-05-25
+  end_max: 2023-11-01
+  start_train: 2022-06-01
+  end_train: 2023-06-01
+  start_predict: 2023-07-02
+  end_predict: 2023-07-12
+
+# Grid cell boundaries (4 x 4 grid across Germany)
+grid:
+  bins_long: [6, 8, 10, 12, 14]
+  bins_lat: [47, 49, 51, 53, 55]
+
+model:
+  # master seed; seeds of all random components are derived from it
+  seed: 1
+  cv_folds: 10
+  n_estimators: 500
+  n_boot: 1000
