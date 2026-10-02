@@ -14,7 +14,7 @@ from joblib import Memory
 
 from windpower import data_power, data_wind, model, plot
 from windpower.config import Config
-from windpower.evaluate import bootstrap_rmse, rmse, spawn_seeds
+from windpower.evaluate import bootstrap_rmse, derive_seeds, rmse
 
 log = logging.getLogger(__name__)
 
@@ -37,7 +37,7 @@ def run(cfg: Config) -> pd.DataFrame:
     Intermediate results are cached with :class:`joblib.Memory` in
     ``cfg.paths.intermediate``. The cache key contains all function arguments,
     so every random seed has to be passed explicitly. The seeds of all random
-    components are derived from ``cfg.model.seed`` with :func:`spawn_seeds`.
+    components are derived from ``cfg.model.seed`` with :func:`derive_seeds`.
 
     Returns:
         Root mean squared error of each model on the prediction period, with
@@ -71,12 +71,10 @@ def run(cfg: Config) -> pd.DataFrame:
     fit_penalized = memory.cache(model.fit_model_penalized)
     folds = cfg.model.cv_folds
     operators = sorted(energy["operator"].unique())
-    seed_cv, seed_forest, seed_boot, *seeds_operator = spawn_seeds(
-        cfg.model.seed, 3 + len(operators)
-    )
+    seeds = derive_seeds(cfg.model.seed, operators)
 
     model_lm = model.fit_model_lm(modelinput)
-    model_penalized = fit_penalized(modelinput, cv_folds=folds, seed=seed_cv)
+    model_penalized = fit_penalized(modelinput, cv_folds=folds, seed=seeds.cv)
     save(
         plot.col_square(
             model_lm.coef, stations_raw, cfg.grid, cfg.paths.germany, "Linear Model Coefficients"
@@ -94,7 +92,7 @@ def run(cfg: Config) -> pd.DataFrame:
         "squares_penalized",
     )
 
-    for operator, seed_op in zip(operators, seeds_operator, strict=True):
+    for operator, seed_op in seeds.operators.items():
         energy_op = energy[energy["operator"] == operator]
         md = model.build_model_data(wind_wide, energy_op, d.start_train, d.end_train)
         fit = fit_penalized(md, cv_folds=folds, seed=seed_op)
@@ -112,7 +110,7 @@ def run(cfg: Config) -> pd.DataFrame:
         "lm prediction": model.predict_model(model_lm, data_predict),
         "penalized prediction": model.predict_model(model_penalized, data_predict),
         "random forest prediction": memory.cache(model.fit_predict_model_forest)(
-            modelinput, data_predict, n_estimators=cfg.model.n_estimators, seed=seed_forest
+            modelinput, data_predict, n_estimators=cfg.model.n_estimators, seed=seeds.forest
         ),
     }
     save(
@@ -129,7 +127,7 @@ def run(cfg: Config) -> pd.DataFrame:
                 **dict(
                     zip(
                         ["rmse_lower", "rmse_upper"],
-                        bootstrap_rmse(truth, p, n_boot=cfg.model.n_boot, seed=seed_boot),
+                        bootstrap_rmse(truth, p, n_boot=cfg.model.n_boot, seed=seeds.bootstrap),
                         strict=True,
                     )
                 ),
