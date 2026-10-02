@@ -1,6 +1,6 @@
 site_name: windpower
 site_description: Mock analysis of wind power generation in Germany
-repo_url: https://github.com/HerrMo/mcml-ws
+repo_url: https://github.com/lmu-ibe-bmm/mcml-repro-ws-wind-exercise
 
 theme:
   name: material
